@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cellhue: Sum and Count by Color in Google Sheets</title>
+  <meta name="description" content="Cellhue is a Google Sheets add-on that sums, counts and averages cells by fill color or font color, and recalculates when colors change.">
+  <link rel="canonical" href="https://cellhue.com/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26">Cellhue</a>
+    <nav class="nav" aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#pricing">Pricing</a>
+      <a href="/help/">Help</a>
+      <a href="/privacy/">Privacy</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div>
+        <h1>Sum and count cells by color in Google Sheets</h1>
+        <p class="lead">Cellhue adds formulas that add up, count and average cells by their fill color or font color. Recolor a cell and the totals update.</p>
+        <div class="actions">
+          <a class="btn" href="INSTALL_URL">Install from Google Workspace Marketplace</a>
+          <a class="btn ghost" href="/help/">How it works</a>
+        </div>
+        <p class="fine">Free plan available. Works only inside the spreadsheet you open it in. <a href="/privacy/">Privacy policy</a></p>
+      </div>
+
+      <div class="demo" aria-label="Example: colored cells and Cellhue formulas">
+        <div class="sheet">
+          <span class="r">12</span><span class="g">7</span><span class="y">30</span><span class="r">5</span>
+          <span class="g">9</span><span class="r">14</span><span class="y">3</span><span class="g">20</span>
+          <span class="y">8</span><span class="r">11</span><span class="g">6</span><span class="r">4</span>
+        </div>
+        <div class="formula"><span>=SUMBYCOLOR(A1:D3, "#ff8d8f")</span><b>46</b></div>
+        <div class="formula"><span>=COUNTBYCOLOR(A1:D3, "#8be0a6")</span><b>4</b></div>
+        <div class="formula"><span>=AVERAGEBYCOLOR(A1:D3, "#ffe27a")</span><b>13.67</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="wrap">
+      <h2>What Cellhue does</h2>
+      <div class="grid3">
+        <div class="card">
+          <h3><span class="dot" style="background:var(--red)"></span>Sum, count, average</h3>
+          <p>Five formulas: <code>SUMBYCOLOR</code>, <code>COUNTBYCOLOR</code>, <code>AVERAGEBYCOLOR</code> for fill color, <code>SUMBYFONTCOLOR</code> and <code>COUNTBYFONTCOLOR</code> for font color.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:var(--green)"></span>Pick a color your way</h3>
+          <p>Point to a sample cell, like <code>C1</code>, or write a color code, like <code>"#ff0000"</code>. Upper or lower case, short <code>"#f00"</code> works too.</p>
+        </div>
+        <div class="card">
+          <h3><span class="dot" style="background:var(--yellow)"></span>Sidebar</h3>
+          <p>Select a range, click <b>Analyze selection</b> and see every color with its cell count, sum and average. One click inserts a ready formula.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <h2>Why Cellhue</h2>
+      <div class="grid2">
+        <div class="card">
+          <h3>Recalculates when a color changes</h3>
+          <p>Google Sheets does not recalculate a formula when only a color changes, so color formulas can keep showing old numbers. Cellhue refreshes its formulas when you open the file and when you click <b>Refresh all</b>. With Pro, it also refreshes on its own while the sidebar is open.</p>
+        </div>
+        <div class="card">
+          <h3>Plain formulas with normal ranges</h3>
+          <p>Write <code>=SUMBYCOLOR(A2:A50, "#ff0000")</code> with a normal range, the way you write <code>SUM</code>. No ranges in quotes, no helper columns, no scripts to copy into your file.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing">
+    <div class="wrap">
+      <h2>Free and Pro</h2>
+      <div class="grid2">
+        <div class="card plan">
+          <h3>Free</h3>
+          <p class="price">$0</p>
+          <ul>
+            <li>Fill color: <code>SUMBYCOLOR</code>, <code>COUNTBYCOLOR</code>, <code>AVERAGEBYCOLOR</code></li>
+            <li>Ranges up to 1,000 cells</li>
+            <li>Sidebar analysis and formula insert</li>
+            <li>Refresh on file open and with <b>Refresh all</b></li>
+          </ul>
+        </div>
+        <div class="card plan pro">
+          <h3>Pro <span class="badge">Pro</span></h3>
+          <p class="price">PRO_PRICE</p>
+          <ul>
+            <li>Everything in Free</li>
+            <li>Font color: <code>SUMBYFONTCOLOR</code>, <code>COUNTBYFONTCOLOR</code></li>
+            <li>No range size limit</li>
+            <li>Auto-refresh while the sidebar is open</li>
+          </ul>
+          <p class="fine" style="margin-top:12px">Payments are handled by Polar. <a href="BUY_URL">Get Pro</a></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="policy">
+        <h3>Your data stays in Google Sheets</h3>
+        <p>Cellhue has no server and makes no external requests. It reads only the spreadsheet you use it in, and your data is not sent anywhere. Read the <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms of Service</a>.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="links">
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="/help/">Help</a>
+      <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a>
+    </div>
+    <p>Google Sheets™ is a trademark of Google LLC. Cellhue is not affiliated with Google.</p>
+  </div>
+</footer>
+
+</body>
+</html>

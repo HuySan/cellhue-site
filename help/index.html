@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Help | Cellhue</title>
+  <meta name="description" content="How to use Cellhue in Google Sheets: SUMBYCOLOR, COUNTBYCOLOR, AVERAGEBYCOLOR, SUMBYFONTCOLOR, COUNTBYFONTCOLOR, the sidebar, refresh and Pro keys.">
+  <link rel="canonical" href="https://cellhue.com/help/">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26">Cellhue</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/help/" aria-current="page">Help</a>
+      <a href="/privacy/">Privacy</a>
+      <a href="/terms/">Terms</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+  <div class="wrap narrow">
+    <h1>Help</h1>
+    <p>Cellhue adds color formulas and a sidebar to Google Sheets. After you install it, find it under <b>Extensions → Cellhue</b>.</p>
+
+    <nav class="toc" aria-label="On this page">
+      <ul>
+        <li><a href="#formulas">Formulas</a></li>
+        <li><a href="#color">Choosing the color</a></li>
+        <li><a href="#sidebar">The sidebar</a></li>
+        <li><a href="#refresh">Refresh and auto-refresh</a></li>
+        <li><a href="#free">Free limit</a></li>
+        <li><a href="#pro">Activating Pro</a></li>
+        <li><a href="#limits">Known limitations</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="formulas">Formulas</h2>
+    <p>Type them in any cell, like any other formula.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Function</th><th>What it returns</th><th>Plan</th></tr></thead>
+        <tbody>
+          <tr><td><code>SUMBYCOLOR(range, color)</code></td><td>Sum of numbers whose fill color matches</td><td>Free</td></tr>
+          <tr><td><code>COUNTBYCOLOR(range, color)</code></td><td>Number of cells whose fill color matches</td><td>Free</td></tr>
+          <tr><td><code>AVERAGEBYCOLOR(range, color)</code></td><td>Average of numbers whose fill color matches</td><td>Free</td></tr>
+          <tr><td><code>SUMBYFONTCOLOR(range, color)</code></td><td>Sum of numbers whose font color matches</td><td>Pro</td></tr>
+          <tr><td><code>COUNTBYFONTCOLOR(range, color)</code></td><td>Number of cells whose font color matches</td><td>Pro</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Examples:</p>
+<pre><code>=SUMBYCOLOR(A2:A50, "#ff0000")
+=COUNTBYCOLOR(B2:F100, "#00ff00")
+=AVERAGEBYCOLOR(A2:A50, C1)
+=SUMBYFONTCOLOR(A2:A50, "#0000ff")
+=COUNTBYFONTCOLOR(A:A, "#ff0000")</code></pre>
+    <ul>
+      <li><b>COUNT</b> counts every cell with the color, empty cells included.</li>
+      <li><b>SUM</b> and <b>AVERAGE</b> use numeric cells only. If no cell of that color holds a number, AVERAGE shows a message instead of a result.</li>
+      <li>If your spreadsheet uses <code>;</code> between arguments (for example, in many European locales), write <code>=SUMBYCOLOR(A2:A50; "#ff0000")</code>.</li>
+      <li>Formulas inserted by Cellhue have a third argument, <code>CELLHUE_REFRESH</code>. It lets Cellhue recalculate them when colors change. Keep it.</li>
+    </ul>
+
+    <h2 id="color">Choosing the color</h2>
+    <p>The second argument can be:</p>
+    <ul>
+      <li><b>A color code</b> in quotes: <code>"#ff0000"</code> or the short form <code>"#f00"</code>. Upper and lower case both work.</li>
+      <li><b>A sample cell</b>, like <code>C1</code>. Cellhue uses its fill color (or its font color for the font functions).</li>
+    </ul>
+    <p>If the color code is not valid, the cell shows <code>Cellhue: invalid color, use a cell or "#rrggbb"</code>. Color names like <code>"red"</code> are not supported.</p>
+
+    <h2 id="sidebar">The sidebar</h2>
+    <ol>
+      <li>Open <b>Extensions → Cellhue → Open sidebar</b>.</li>
+      <li>Choose <b>Fill color</b> or <b>Font color</b> (font color is Pro).</li>
+      <li>Select a range in the sheet and click <b>Analyze selection</b>. You see every color in the range with its cell count, sum and average.</li>
+      <li>To keep a result in the sheet, click a color in the list, pick <b>Sum</b>, <b>Count</b> or <b>Average</b>, click an empty cell outside the range, then click <b>Insert formula</b>. Cellhue writes a formula with the color code, for example <code>=SUMBYCOLOR(A1:A20, "#ff0000", CELLHUE_REFRESH)</code>.</li>
+    </ol>
+
+    <h2 id="refresh">Refresh and auto-refresh</h2>
+    <p>Google Sheets does not recalculate a formula when only a color changes. Cellhue updates its formulas in these ways:</p>
+    <ul>
+      <li><b>When you open the file</b> (Free and Pro).</li>
+      <li><b>Refresh all</b>: <b>Extensions → Cellhue → Refresh all</b>, or the <b>Refresh</b> button in the sidebar. It also adds <code>CELLHUE_REFRESH</code> to formulas you typed by hand, so they can be refreshed later.</li>
+      <li><b>Auto-refresh (Pro)</b>: while the sidebar is open, Cellhue checks the colors of the ranges used in your formulas and recalculates when they change. It checks every 3 seconds after a change, then less often, up to every 30 seconds, when nothing changes. Checks pause while the browser tab is in the background. A new color may take up to about 35 seconds to show in the results.</li>
+    </ul>
+    <p class="note">To refresh, Cellhue keeps a small hidden sheet named <code>_cellhue</code> with the named range <code>CELLHUE_REFRESH</code>. Please do not delete it.</p>
+
+    <h2 id="free">Free limit</h2>
+    <p>On the Free plan, a formula range or a sidebar selection can have up to 1,000 cells. Larger ranges show <code>Cellhue Free: up to 1000 cells. Pro removes the limit</code>. Whole-column ranges like <code>A:A</code> count only down to the last row with data.</p>
+
+    <h2 id="pro">Activating Pro</h2>
+    <ol>
+      <li>Buy Pro: <a href="BUY_URL">BUY_URL</a>. Use the email of the Google account you work in Google Sheets with.</li>
+      <li>You receive a license key like <code>XXXX-XXXX-XXXX-XXXX</code>.</li>
+      <li>In Google Sheets open <b>Extensions → Cellhue → Enter license key</b> and paste the key. You can also paste it in the Pro box in the sidebar and click <b>Activate</b>.</li>
+    </ol>
+    <p>The key works only for the Google account email it was made for. If you see "This key does not match", you are signed in to Sheets with a different account.</p>
+
+    <h2 id="limits">Known limitations</h2>
+    <ul>
+      <li>Use a direct range like <code>A1:B10</code>, <code>A:A</code>, <code>'Sheet 2'!A1:A9</code> or a named range. Ranges built with <code>INDIRECT</code>, <code>OFFSET</code> or arrays are not supported.</li>
+      <li>Put each color formula in its own cell if a formula uses the same function twice on ranges with identical values.</li>
+      <li>Colored empty cells below the last row with data are not counted in whole-column ranges.</li>
+    </ul>
+
+    <h2 id="contact">Contact</h2>
+    <p>Questions or problems: <a href="mailto:SUPPORT_EMAIL">SUPPORT_EMAIL</a></p>
+  </div>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+      <a href="/help/">Help</a>
+    </div>
+    <p>Google Sheets™ is a trademark of Google LLC. Cellhue is not affiliated with Google.</p>
+  </div>
+</footer>
+
+</body>
+</html>
