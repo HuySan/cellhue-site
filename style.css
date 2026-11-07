@@ -242,3 +242,24 @@ th { color: var(--ink); }
   .nav { gap: 12px; }
   .sheet span { padding: 6px; font-size: 0.8rem; }
 }
+
+/* Guide cards on the home page */
+.link-card { display: block; text-decoration: none; color: var(--text); transition: border-color 0.15s; }
+.link-card:hover { border-color: var(--ink); color: var(--text); }
+
+/* FAQ */
+.faq { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 20px; margin-bottom: 10px; }
+.faq summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.faq p { margin: 10px 0 0; }
+
+/* Guide pages */
+.crumbs { font-size: 0.9rem; color: var(--muted); margin-bottom: 18px; }
+.crumbs a { color: var(--muted); }
+.cta { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; margin: 28px 0; }
+.cta h2 { margin-top: 0; }
+.cta .actions { margin: 14px 0 0; }
+.related { margin-top: 36px; }
+
+/* Install button placeholder until the Marketplace listing is live */
+.btn.soon { background: var(--soft); color: var(--muted); cursor: default; border: 1px dashed var(--line); }
+.btn.soon:hover { opacity: 1; color: var(--muted); }

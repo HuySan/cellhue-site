@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sum and Count by Font Color in Google Sheets | Cellhue</title>
+  <meta name="description" content="Add up or count cells by text color in Google Sheets, such as red numbers, with a text color filter or the SUMBYFONTCOLOR and COUNTBYFONTCOLOR formulas.">
+  <link rel="canonical" href="https://cellhue.com/sum-by-font-color-google-sheets/">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#16161a">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cellhue">
+  <meta property="og:title" content="Sum and count cells by font color in Google Sheets">
+  <meta property="og:description" content="Add up or count cells by text color in Google Sheets, such as red numbers, with a text color filter or the SUMBYFONTCOLOR and COUNTBYFONTCOLOR formulas.">
+  <meta property="og:url" content="https://cellhue.com/sum-by-font-color-google-sheets/">
+  <meta property="og:image" content="https://cellhue.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "Sum and count cells by font color in Google Sheets",
+      "description": "Add up or count cells by text color in Google Sheets, such as red numbers, with a text color filter or the SUMBYFONTCOLOR and COUNTBYFONTCOLOR formulas.",
+      "url": "https://cellhue.com/sum-by-font-color-google-sheets/",
+      "image": "https://cellhue.com/og-image.png",
+      "datePublished": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "author": {
+        "@type": "Organization",
+        "name": "Cellhue",
+        "url": "https://cellhue.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cellhue",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cellhue.com/logo.png"
+        }
+      },
+      "mainEntityOfPage": "https://cellhue.com/sum-by-font-color-google-sheets/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Cellhue",
+          "item": "https://cellhue.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Sum by font color",
+          "item": "https://cellhue.com/sum-by-font-color-google-sheets/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.svg" alt="Cellhue logo" width="26" height="26">Cellhue</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/#guides">Guides</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/help/">Help</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+  <article class="wrap narrow">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Cellhue</a> / Sum by font color</nav>
+    <h1>Sum and count cells by font color in Google Sheets</h1>
+    <p class="updated">Updated November 7, 2026</p>
+
+    <p>Sometimes the color is in the text, not the cell: overdue amounts in red, confirmed ones in green. Google Sheets has no function that sums or counts by font color, but you can filter by text color, or use <code>SUMBYFONTCOLOR</code> and <code>COUNTBYFONTCOLOR</code> from Cellhue.</p>
+
+    <h2>Without an add-on: filter by text color</h2>
+    <ol>
+      <li>Choose <b>Data → Create a filter</b>.</li>
+      <li>Click the filter icon in the column header, then <b>Filter by color → Text color</b>, and pick the color.</li>
+      <li>Outside the filtered rows, use <code>=SUBTOTAL(109, B2:B50)</code> to sum or <code>=SUBTOTAL(103, B2:B50)</code> to count the visible cells.</li>
+    </ol>
+    <p>This shows one color at a time and the result depends on the current filter.</p>
+
+    <h2>With Cellhue: SUMBYFONTCOLOR and COUNTBYFONTCOLOR</h2>
+<pre><code>=SUMBYFONTCOLOR(B2:B50, "#ff0000")
+=COUNTBYFONTCOLOR(A:A, "#ff0000")
+=SUMBYFONTCOLOR(B2:B50, D1)</code></pre>
+    <ul>
+      <li>The color is a code like <code>"#ff0000"</code> or a sample cell like <code>D1</code>; Cellhue uses that cell's font color.</li>
+      <li><code>SUMBYFONTCOLOR</code> adds numbers only. <code>COUNTBYFONTCOLOR</code> counts every cell with that text color.</li>
+      <li>In the sidebar, switch to <b>Font color</b>, select a range and click <b>Analyze selection</b> to see every text color in it with count, sum and average.</li>
+      <li>Font color formulas are part of <a href="/#pricing">Cellhue Pro</a> ($19 one-time payment), which also removes the 1,000-cell limit and adds auto-refresh while the sidebar is open.</li>
+    </ul>
+
+    <h2>Which red is my red?</h2>
+    <p>The default Sheets "red" text is <code>#ff0000</code>, but the palette has several reds (<code>#e06666</code>, <code>#cc0000</code>, <code>#990000</code> and more), and each counts as its own color. If a total looks too small, run <b>Analyze selection</b> in Font color mode: it lists every color actually used, so you can see whether two similar reds are mixed. Pointing to a sample cell like <code>D1</code> also avoids typing the code.</p>
+
+    <h2>Common questions</h2>
+    <h3>Can I count by fill color and font color together?</h3>
+    <p>Each formula checks one kind of color. Use <code>COUNTBYCOLOR</code> for fill and <code>COUNTBYFONTCOLOR</code> for text, in separate cells.</p>
+    <h3>Does it see text colored by conditional formatting?</h3>
+    <p>No, only the font color set on the cell. For rule-based colors, use <code>SUMIF</code> or <code>COUNTIF</code> with the rule's condition.</p>
+    <p>Working with cell fill colors? See <a href="/sum-by-color-google-sheets/">sum by color</a> and <a href="/count-colored-cells-google-sheets/">count colored cells</a>.</p>
+
+    <div class="cta">
+      <h2>Try Cellhue</h2>
+      <p>Color formulas that work like <code>SUM</code> and <code>COUNTIF</code>, a sidebar that shows every color in a range, and refresh when colors change. Free plan for fill colors; Pro is a $19 one-time payment.</p>
+      <div class="actions">
+        <span class="btn soon" aria-disabled="true"><!-- INSTALL_URL: replace with the Marketplace link after listing -->Coming soon to Google Workspace Marketplace</span>
+        <a class="btn ghost" href="/help/">Read the help</a>
+      </div>
+    </div>
+
+    <section class="related" aria-label="Related guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/count-colored-cells-google-sheets/">Count colored cells</a></li>
+        <li><a href="/sum-by-color-google-sheets/">Sum by color</a></li>
+        <li><a href="/help/">Cellhue help: all formulas and settings</a></li>
+      </ul>
+    </section>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="links">
+      <a href="/count-colored-cells-google-sheets/">Count colored cells</a>
+      <a href="/sum-by-color-google-sheets/">Sum by color</a>
+      <a href="/sum-by-font-color-google-sheets/">Sum by font color</a>
+      <a href="/help/">Help</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+    </div>
+    <p>Google Sheets™ is a trademark of Google LLC. Cellhue is not affiliated with Google.</p>
+  </div>
+</footer>
+
+</body>
+</html>

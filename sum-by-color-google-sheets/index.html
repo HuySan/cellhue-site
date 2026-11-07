@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Sum Cells by Color in Google Sheets | Cellhue</title>
+  <meta name="description" content="Sum and average cells by fill color in Google Sheets with SUBTOTAL, Apps Script or a SUMBYCOLOR formula. Examples, and why color totals go stale.">
+  <link rel="canonical" href="https://cellhue.com/sum-by-color-google-sheets/">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#16161a">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cellhue">
+  <meta property="og:title" content="How to sum cells by color in Google Sheets">
+  <meta property="og:description" content="Sum and average cells by fill color in Google Sheets with SUBTOTAL, Apps Script or a SUMBYCOLOR formula. Examples, and why color totals go stale.">
+  <meta property="og:url" content="https://cellhue.com/sum-by-color-google-sheets/">
+  <meta property="og:image" content="https://cellhue.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to sum cells by color in Google Sheets",
+      "description": "Sum and average cells by fill color in Google Sheets with SUBTOTAL, Apps Script or a SUMBYCOLOR formula. Examples, and why color totals go stale.",
+      "url": "https://cellhue.com/sum-by-color-google-sheets/",
+      "image": "https://cellhue.com/og-image.png",
+      "datePublished": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "author": {
+        "@type": "Organization",
+        "name": "Cellhue",
+        "url": "https://cellhue.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cellhue",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cellhue.com/logo.png"
+        }
+      },
+      "mainEntityOfPage": "https://cellhue.com/sum-by-color-google-sheets/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Cellhue",
+          "item": "https://cellhue.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Sum by color",
+          "item": "https://cellhue.com/sum-by-color-google-sheets/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.svg" alt="Cellhue logo" width="26" height="26">Cellhue</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/#guides">Guides</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/help/">Help</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+  <article class="wrap narrow">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Cellhue</a> / Sum by color</nav>
+    <h1>How to sum cells by color in Google Sheets</h1>
+    <p class="updated">Updated November 7, 2026</p>
+
+    <p>Google Sheets can add numbers with <code>SUM</code> and <code>SUMIF</code>, but there is no built-in function to sum cells by their fill color. You can filter by color and use <code>SUBTOTAL</code>, write a small Apps Script function, or use an add-on with a <code>SUMBYCOLOR</code> formula. Here is how each works.</p>
+
+    <nav class="toc" aria-label="On this page">
+      <ul>
+        <li><a href="#filter">Method 1: Filter by color and SUBTOTAL (no add-on)</a></li>
+        <li><a href="#script">Method 2: Apps Script custom function</a></li>
+        <li><a href="#cellhue">Method 3: SUMBYCOLOR and AVERAGEBYCOLOR with Cellhue</a></li>
+        <li><a href="#refresh">Why color totals go stale</a></li>
+        <li><a href="#faq">Common questions</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="filter">Method 1: Filter by color and SUBTOTAL (no add-on)</h2>
+    <ol>
+      <li>Click a cell in your data and choose <b>Data → Create a filter</b>.</li>
+      <li>In the column header, click the filter icon, then <b>Filter by color → Fill color</b>, and pick the color.</li>
+      <li>In a cell outside the filtered rows, type:
+<pre><code>=SUBTOTAL(109, B2:B50)</code></pre>
+      </li>
+    </ol>
+    <p><code>109</code> sums only the visible rows. Use <code>101</code> for the average. You see one color at a time, and the total changes whenever the filter changes, so this is best for a quick check, not for a report.</p>
+
+    <h2 id="script">Method 2: Apps Script custom function</h2>
+    <p>Open <b>Extensions → Apps Script</b>, paste this and click <b>Save</b>:</p>
+<pre><code>function sumColoredCells(rangeA1, color) {
+  var range = SpreadsheetApp.getActiveSpreadsheet().getRange(rangeA1);
+  var colors = range.getBackgrounds();
+  var values = range.getValues();
+  var target = color.toLowerCase();
+  var sum = 0;
+  for (var r = 0; r &lt; colors.length; r++) {
+    for (var c = 0; c &lt; colors[r].length; c++) {
+      if (colors[r][c].toLowerCase() === target &amp;&amp; typeof values[r][c] === 'number') {
+        sum += values[r][c];
+      }
+    }
+  }
+  return sum;
+}</code></pre>
+<pre><code>=sumColoredCells("B2:B50", "#00ff00")</code></pre>
+    <p>It works, with the same catches as any color script: the range sits in quotes and does not move when you insert rows, you need the exact color code, and <b>the total does not update when you recolor a cell</b>.</p>
+
+    <h2 id="cellhue">Method 3: SUMBYCOLOR and AVERAGEBYCOLOR with Cellhue</h2>
+    <p>With the <a href="/">Cellhue</a> add-on installed, sum and average by color with normal ranges:</p>
+<pre><code>=SUMBYCOLOR(B2:B50, "#00ff00")
+=AVERAGEBYCOLOR(B2:B50, "#00ff00")
+=SUMBYCOLOR(B2:F100, H1)</code></pre>
+    <ul>
+      <li>The color can be a code like <code>"#00ff00"</code> or <code>"#0f0"</code>, or a sample cell like <code>H1</code>.</li>
+      <li>Only numbers are added. Text and empty cells in that color are skipped.</li>
+      <li>If no cell of that color holds a number, <code>AVERAGEBYCOLOR</code> shows a message instead of a division error.</li>
+      <li>The sidebar (<b>Extensions → Cellhue → Open sidebar</b>, then <b>Analyze selection</b>) lists every color in a range with its sum, count and average, so you can see the color codes and insert a formula in one click.</li>
+    </ul>
+
+    <h3>Example: a budget with colored rows</h3>
+    <p>Expenses in <code>B2:B40</code>, paid ones filled green, unpaid ones red:</p>
+<pre><code>Paid:    =SUMBYCOLOR(B2:B40, "#d9ead3")
+Unpaid:  =SUMBYCOLOR(B2:B40, "#f4cccc")
+Unpaid items: =COUNTBYCOLOR(B2:B40, "#f4cccc")</code></pre>
+    <p>Mark a row green and the totals follow after a refresh.</p>
+
+    <h2 id="refresh">Why color totals go stale</h2>
+    <p>Google Sheets recalculates formulas when values change. Changing only a color is not such a change, so any color formula, from a script or an add-on, can keep showing the old total. Cellhue refreshes its formulas when you open the file and when you click <b>Extensions → Cellhue → Refresh all</b>. With Pro, it watches the colors while the sidebar is open and recalculates by itself.</p>
+
+    <h2 id="faq">Common questions</h2>
+    <h3>Can SUMIF sum by color?</h3>
+    <p>No. <code>SUMIF</code> and <code>SUMIFS</code> compare values, not formatting.</p>
+    <h3>Does it work with colors from conditional formatting?</h3>
+    <p>No, only with colors set on the cell. For rule-based colors, use <code>SUMIF</code> with the same condition as the rule.</p>
+    <h3>Is there a size limit?</h3>
+    <p>The Free plan handles ranges up to 1,000 cells. Pro removes the limit.</p>
+    <p>Need a count instead of a sum? See <a href="/count-colored-cells-google-sheets/">how to count colored cells</a>.</p>
+
+    <div class="cta">
+      <h2>Try Cellhue</h2>
+      <p>Color formulas that work like <code>SUM</code> and <code>COUNTIF</code>, a sidebar that shows every color in a range, and refresh when colors change. Free plan for fill colors; Pro is a $19 one-time payment.</p>
+      <div class="actions">
+        <span class="btn soon" aria-disabled="true"><!-- INSTALL_URL: replace with the Marketplace link after listing -->Coming soon to Google Workspace Marketplace</span>
+        <a class="btn ghost" href="/help/">Read the help</a>
+      </div>
+    </div>
+
+    <section class="related" aria-label="Related guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/count-colored-cells-google-sheets/">Count colored cells</a></li>
+        <li><a href="/sum-by-font-color-google-sheets/">Sum by font color</a></li>
+        <li><a href="/help/">Cellhue help: all formulas and settings</a></li>
+      </ul>
+    </section>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="links">
+      <a href="/count-colored-cells-google-sheets/">Count colored cells</a>
+      <a href="/sum-by-color-google-sheets/">Sum by color</a>
+      <a href="/sum-by-font-color-google-sheets/">Sum by font color</a>
+      <a href="/help/">Help</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+    </div>
+    <p>Google Sheets™ is a trademark of Google LLC. Cellhue is not affiliated with Google.</p>
+  </div>
+</footer>
+
+</body>
+</html>

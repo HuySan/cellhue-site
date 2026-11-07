@@ -3,22 +3,108 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cellhue: Sum and Count by Color in Google Sheets</title>
-  <meta name="description" content="Cellhue is a Google Sheets add-on that sums, counts and averages cells by fill color or font color, and recalculates when colors change.">
+  <title>Sum and Count Cells by Color in Google Sheets | Cellhue</title>
+  <meta name="description" content="Sum, count and average cells by fill color or font color in Google Sheets with formulas like SUMBYCOLOR and COUNTBYCOLOR. Updates when colors change. Free plan.">
   <link rel="canonical" href="https://cellhue.com/">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#16161a">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cellhue">
+  <meta property="og:title" content="Sum and count cells by color in Google Sheets">
+  <meta property="og:description" content="SUMBYCOLOR, COUNTBYCOLOR and AVERAGEBYCOLOR formulas for fill and font color. Recalculates when a color changes. Free plan, $19 one-time Pro.">
+  <meta property="og:url" content="https://cellhue.com/">
+  <meta property="og:image" content="https://cellhue.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Cellhue: colored cells with SUMBYCOLOR and COUNTBYCOLOR results">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://cellhue.com/#org",
+        "name": "Cellhue",
+        "url": "https://cellhue.com/",
+        "logo": "https://cellhue.com/logo.png",
+        "email": "idiosgamecorporation@gmail.com"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://cellhue.com/#website",
+        "name": "Cellhue",
+        "url": "https://cellhue.com/",
+        "publisher": { "@id": "https://cellhue.com/#org" }
+      },
+      {
+        "@type": "SoftwareApplication",
+        "name": "Cellhue",
+        "url": "https://cellhue.com/",
+        "image": "https://cellhue.com/og-image.png",
+        "description": "Google Sheets add-on that sums, counts and averages cells by fill color or font color with formulas like SUMBYCOLOR and COUNTBYCOLOR, and recalculates them when colors change.",
+        "applicationCategory": "BusinessApplication",
+        "applicationSubCategory": "Google Sheets add-on",
+        "operatingSystem": "Web",
+        "publisher": { "@id": "https://cellhue.com/#org" },
+        "offers": [
+          { "@type": "Offer", "name": "Free", "price": "0", "priceCurrency": "USD" },
+          { "@type": "Offer", "name": "Pro, one-time payment", "price": "19", "priceCurrency": "USD", "url": "https://buy.polar.sh/polar_cl_9DgsAWkH0CO9FL67mQCb24jk4iDOaRZ3e9LSx3De89t" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can Google Sheets count or sum cells by color without an add-on?",
+            "acceptedAnswer": { "@type": "Answer", "text": "There is no built-in COUNTBYCOLOR or SUMBYCOLOR function. You can filter a column by color and use SUBTOTAL, or write an Apps Script custom function. Both work, but the filter shows one color at a time and the script does not recalculate when a color changes. Cellhue adds ready formulas that do." }
+          },
+          {
+            "@type": "Question",
+            "name": "Do the totals update when I change a cell's color?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Google Sheets does not recalculate formulas when only a color changes. Cellhue refreshes its formulas when you open the file and when you click Refresh all. With Pro, it also refreshes on its own while the sidebar is open." }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I count cells by font color (text color)?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. SUMBYFONTCOLOR and COUNTBYFONTCOLOR work with the text color. They are part of Cellhue Pro." }
+          },
+          {
+            "@type": "Question",
+            "name": "Are colors from conditional formatting counted?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Cellhue reads the fill and font colors set on the cell. Colors shown by conditional formatting rules are not counted. For those cells, use COUNTIF or SUMIF with the same condition as the rule." }
+          },
+          {
+            "@type": "Question",
+            "name": "What access does Cellhue need?",
+            "acceptedAnswer": { "@type": "Answer", "text": "Only the spreadsheet you open it in. It cannot see your other files, has no server of its own and does not send your spreadsheet data anywhere." }
+          },
+          {
+            "@type": "Question",
+            "name": "Is Cellhue Pro a subscription?",
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Pro is a one-time payment of $19. One license key works on up to 3 Google accounts." }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26">Cellhue</a>
+    <a class="brand" href="/"><img src="/favicon.svg" alt="Cellhue logo" width="26" height="26">Cellhue</a>
     <nav class="nav" aria-label="Main">
       <a href="#features">Features</a>
+      <a href="#guides">Guides</a>
       <a href="#pricing">Pricing</a>
       <a href="/help/">Help</a>
-      <a href="/privacy/">Privacy</a>
     </nav>
   </div>
 </header>
@@ -30,7 +116,7 @@
         <h1>Sum and count cells by color in Google Sheets</h1>
         <p class="lead">Cellhue adds formulas that add up, count and average cells by their fill color or font color. Recolor a cell and the totals update.</p>
         <div class="actions">
-          <a class="btn" href="INSTALL_URL">Install from Google Workspace Marketplace</a>
+          <span class="btn soon" aria-disabled="true"><!-- INSTALL_URL: replace with the Marketplace link after listing -->Coming soon to Google Workspace Marketplace</span>
           <a class="btn ghost" href="/help/">How it works</a>
         </div>
         <p class="fine">Free plan available. Works only inside the spreadsheet you open it in. <a href="/privacy/">Privacy policy</a></p>
@@ -85,6 +171,26 @@
     </div>
   </section>
 
+  <section id="guides">
+    <div class="wrap">
+      <h2>Guides</h2>
+      <div class="grid3">
+        <a class="card link-card" href="/count-colored-cells-google-sheets/">
+          <h3>How to count colored cells in Google Sheets</h3>
+          <p>Three ways: filter by color with SUBTOTAL, an Apps Script function, or <code>COUNTBYCOLOR</code>.</p>
+        </a>
+        <a class="card link-card" href="/sum-by-color-google-sheets/">
+          <h3>How to sum cells by color in Google Sheets</h3>
+          <p>Add up and average numbers by fill color, and keep the totals right when colors change.</p>
+        </a>
+        <a class="card link-card" href="/sum-by-font-color-google-sheets/">
+          <h3>Sum and count by font color</h3>
+          <p>Work with red, green or any text color: <code>SUMBYFONTCOLOR</code> and <code>COUNTBYFONTCOLOR</code>.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <section id="pricing">
     <div class="wrap">
       <h2>Free and Pro</h2>
@@ -114,6 +220,36 @@
     </div>
   </section>
 
+  <section id="faq">
+    <div class="wrap narrow">
+      <h2>Questions</h2>
+      <details class="faq">
+        <summary>Can Google Sheets count or sum cells by color without an add-on?</summary>
+        <p>There is no built-in <code>COUNTBYCOLOR</code> or <code>SUMBYCOLOR</code> function. You can filter a column by color and use <code>SUBTOTAL</code>, or write an Apps Script custom function. Both work, but the filter shows one color at a time and the script does not recalculate when a color changes. Cellhue adds ready formulas that do. See <a href="/count-colored-cells-google-sheets/">all three ways, step by step</a>.</p>
+      </details>
+      <details class="faq">
+        <summary>Do the totals update when I change a cell's color?</summary>
+        <p>Google Sheets does not recalculate formulas when only a color changes. Cellhue refreshes its formulas when you open the file and when you click <b>Refresh all</b>. With Pro, it also refreshes on its own while the sidebar is open.</p>
+      </details>
+      <details class="faq">
+        <summary>Can I count cells by font color (text color)?</summary>
+        <p>Yes. <code>SUMBYFONTCOLOR</code> and <code>COUNTBYFONTCOLOR</code> work with the text color. They are part of Cellhue Pro. <a href="/sum-by-font-color-google-sheets/">Font color guide</a>.</p>
+      </details>
+      <details class="faq">
+        <summary>Are colors from conditional formatting counted?</summary>
+        <p>No. Cellhue reads the fill and font colors set on the cell. Colors shown by conditional formatting rules are not counted. For those cells, use <code>COUNTIF</code> or <code>SUMIF</code> with the same condition as the rule.</p>
+      </details>
+      <details class="faq">
+        <summary>What access does Cellhue need?</summary>
+        <p>Only the spreadsheet you open it in. It cannot see your other files, has no server of its own and does not send your spreadsheet data anywhere.</p>
+      </details>
+      <details class="faq">
+        <summary>Is Cellhue Pro a subscription?</summary>
+        <p>No. Pro is a one-time payment of $19. One license key works on up to 3 Google accounts.</p>
+      </details>
+    </div>
+  </section>
+
   <section>
     <div class="wrap">
       <div class="policy">
@@ -127,9 +263,12 @@
 <footer class="foot">
   <div class="wrap">
     <div class="links">
+      <a href="/count-colored-cells-google-sheets/">Count colored cells</a>
+      <a href="/sum-by-color-google-sheets/">Sum by color</a>
+      <a href="/sum-by-font-color-google-sheets/">Sum by font color</a>
+      <a href="/help/">Help</a>
       <a href="/privacy/">Privacy Policy</a>
       <a href="/terms/">Terms of Service</a>
-      <a href="/help/">Help</a>
       <a href="mailto:idiosgamecorporation@gmail.com">idiosgamecorporation@gmail.com</a>
     </div>
     <p>Google Sheets™ is a trademark of Google LLC. Cellhue is not affiliated with Google.</p>

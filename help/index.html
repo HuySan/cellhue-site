@@ -6,14 +6,24 @@
   <title>Help | Cellhue</title>
   <meta name="description" content="How to use Cellhue in Google Sheets: SUMBYCOLOR, COUNTBYCOLOR, AVERAGEBYCOLOR, SUMBYFONTCOLOR, COUNTBYFONTCOLOR, the sidebar, refresh and Pro keys.">
   <link rel="canonical" href="https://cellhue.com/help/">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#16161a">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Cellhue">
+  <meta property="og:title" content="Help | Cellhue">
+  <meta property="og:url" content="https://cellhue.com/help/">
+  <meta property="og:image" content="https://cellhue.com/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="/"><img src="/favicon.svg" alt="" width="26" height="26">Cellhue</a>
+    <a class="brand" href="/"><img src="/favicon.svg" alt="Cellhue logo" width="26" height="26">Cellhue</a>
     <nav class="nav" aria-label="Main">
       <a href="/">Home</a>
       <a href="/help/" aria-current="page">Help</a>
@@ -110,6 +120,7 @@
       <li>Use a direct range like <code>A1:B10</code>, <code>A:A</code>, <code>'Sheet 2'!A1:A9</code> or a named range. Ranges built with <code>INDIRECT</code>, <code>OFFSET</code> or arrays are not supported.</li>
       <li>Put each color formula in its own cell if a formula uses the same function twice on ranges with identical values.</li>
       <li>Colored empty cells below the last row with data are not counted in whole-column ranges.</li>
+      <li>Colors shown by conditional formatting rules are not counted. Cellhue reads the fill and font colors set on the cell. For rule-based colors, use <code>COUNTIF</code> or <code>SUMIF</code> with the rule's condition.</li>
     </ul>
 
     <h2 id="contact">Contact</h2>
@@ -121,6 +132,9 @@
   <div class="wrap">
     <div class="links">
       <a href="/">Home</a>
+      <a href="/count-colored-cells-google-sheets/">Count colored cells</a>
+      <a href="/sum-by-color-google-sheets/">Sum by color</a>
+      <a href="/sum-by-font-color-google-sheets/">Sum by font color</a>
       <a href="/privacy/">Privacy Policy</a>
       <a href="/terms/">Terms of Service</a>
       <a href="/help/">Help</a>

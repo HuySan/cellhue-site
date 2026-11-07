@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>How to Count Colored Cells in Google Sheets (3 Ways) | Cellhue</title>
+  <meta name="description" content="Count cells by fill color in Google Sheets: filter by color with SUBTOTAL, an Apps Script function, or a COUNTBYCOLOR formula that updates when colors change.">
+  <link rel="canonical" href="https://cellhue.com/count-colored-cells-google-sheets/">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <meta name="theme-color" content="#16161a">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Cellhue">
+  <meta property="og:title" content="How to count colored cells in Google Sheets">
+  <meta property="og:description" content="Count cells by fill color in Google Sheets: filter by color with SUBTOTAL, an Apps Script function, or a COUNTBYCOLOR formula that updates when colors change.">
+  <meta property="og:url" content="https://cellhue.com/count-colored-cells-google-sheets/">
+  <meta property="og:image" content="https://cellhue.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="/style.css">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "headline": "How to count colored cells in Google Sheets",
+      "description": "Count cells by fill color in Google Sheets: filter by color with SUBTOTAL, an Apps Script function, or a COUNTBYCOLOR formula that updates when colors change.",
+      "url": "https://cellhue.com/count-colored-cells-google-sheets/",
+      "image": "https://cellhue.com/og-image.png",
+      "datePublished": "2026-11-07",
+      "dateModified": "2026-11-07",
+      "author": {
+        "@type": "Organization",
+        "name": "Cellhue",
+        "url": "https://cellhue.com/"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "Cellhue",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://cellhue.com/logo.png"
+        }
+      },
+      "mainEntityOfPage": "https://cellhue.com/count-colored-cells-google-sheets/"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Cellhue",
+          "item": "https://cellhue.com/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Count colored cells",
+          "item": "https://cellhue.com/count-colored-cells-google-sheets/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="/"><img src="/favicon.svg" alt="Cellhue logo" width="26" height="26">Cellhue</a>
+    <nav class="nav" aria-label="Main">
+      <a href="/">Home</a>
+      <a href="/#guides">Guides</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/help/">Help</a>
+    </nav>
+  </div>
+</header>
+
+<main class="doc">
+  <article class="wrap narrow">
+    <nav class="crumbs" aria-label="Breadcrumb"><a href="/">Cellhue</a> / Count colored cells</nav>
+    <h1>How to count colored cells in Google Sheets</h1>
+    <p class="updated">Updated November 7, 2026</p>
+
+    <p>Google Sheets has <code>COUNTIF</code> for values, but no built-in function that counts cells by their fill color. There are three ways to do it: filter by color and use <code>SUBTOTAL</code>, write a small Apps Script function, or install an add-on that gives you a <code>COUNTBYCOLOR</code> formula. This guide shows all three and when each one fits.</p>
+
+    <nav class="toc" aria-label="On this page">
+      <ul>
+        <li><a href="#filter">Method 1: Filter by color and SUBTOTAL (no add-on)</a></li>
+        <li><a href="#script">Method 2: Apps Script custom function</a></li>
+        <li><a href="#cellhue">Method 3: COUNTBYCOLOR with Cellhue</a></li>
+        <li><a href="#compare">Which method to use</a></li>
+        <li><a href="#faq">Common questions</a></li>
+      </ul>
+    </nav>
+
+    <h2 id="filter">Method 1: Filter by color and SUBTOTAL (no add-on)</h2>
+    <p>Sheets can filter a column by color, and <code>SUBTOTAL</code> counts only the rows the filter leaves visible.</p>
+    <ol>
+      <li>Click any cell in your data and choose <b>Data → Create a filter</b>.</li>
+      <li>Click the filter icon in the column header, then <b>Filter by color → Fill color</b>, and pick the color.</li>
+      <li>In a cell above or below the data (not in the filtered rows), type:
+<pre><code>=SUBTOTAL(103, A2:A50)</code></pre>
+      </li>
+    </ol>
+    <p><code>103</code> counts non-empty visible cells (like <code>COUNTA</code>). Use <code>102</code> to count only numbers.</p>
+    <p><b>Good for:</b> a quick one-off count. <b>Limits:</b> one color at a time, empty colored cells are not counted, and the result changes as soon as someone changes the filter. A filter on the sheet also changes the view for every editor; use <b>Data → Filter views</b> if you share the file.</p>
+
+    <h2 id="script">Method 2: Apps Script custom function</h2>
+    <p>You can write your own function. Open <b>Extensions → Apps Script</b>, replace the code with this and click <b>Save</b>:</p>
+<pre><code>function countColoredCells(rangeA1, color) {
+  var range = SpreadsheetApp.getActiveSpreadsheet().getRange(rangeA1);
+  var colors = range.getBackgrounds();
+  var target = color.toLowerCase();
+  var count = 0;
+  for (var r = 0; r &lt; colors.length; r++) {
+    for (var c = 0; c &lt; colors[r].length; c++) {
+      if (colors[r][c].toLowerCase() === target) count++;
+    }
+  }
+  return count;
+}</code></pre>
+    <p>Then use it in a cell. The range must be in quotes:</p>
+<pre><code>=countColoredCells("A2:A50", "#ff0000")</code></pre>
+    <p><b>Limits:</b></p>
+    <ul>
+      <li><b>It does not update when a color changes.</b> Sheets recalculates a custom function only when its arguments change, and a color change is not one. The count stays old until you edit the formula.</li>
+      <li>The range is text, so it does not move when you insert rows or columns.</li>
+      <li>You need the exact color code, like <code>#ff0000</code>. Sheets does not show it next to the cell.</li>
+      <li>You have to copy the script into every spreadsheet where you need it.</li>
+    </ul>
+
+    <h2 id="cellhue">Method 3: COUNTBYCOLOR with Cellhue</h2>
+    <p><a href="/">Cellhue</a> is a Google Sheets add-on that adds color formulas. After you install it, count cells with a normal range, the way you use <code>COUNTIF</code>:</p>
+<pre><code>=COUNTBYCOLOR(A2:A50, "#ff0000")
+=COUNTBYCOLOR(A2:F100, C1)</code></pre>
+    <ul>
+      <li>The second argument is a color code (<code>"#ff0000"</code>, <code>"#f00"</code>) or a sample cell like <code>C1</code> that has the color you want.</li>
+      <li>Every cell with that fill color is counted, empty cells included.</li>
+      <li>Don't know the color code? Open <b>Extensions → Cellhue → Open sidebar</b>, select the range and click <b>Analyze selection</b>. You see every color in the range with its count, sum and average, and one click inserts the formula.</li>
+      <li>Cellhue refreshes its formulas when you open the file and when you click <b>Refresh all</b>. With Pro, it refreshes on its own while the sidebar is open.</li>
+    </ul>
+    <p>To count by text color instead, see <a href="/sum-by-font-color-google-sheets/">count by font color</a>. To add up the numbers in colored cells, see <a href="/sum-by-color-google-sheets/">sum by color</a>.</p>
+
+    <h2 id="compare">Which method to use</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th></th><th>Filter + SUBTOTAL</th><th>Apps Script</th><th>Cellhue</th></tr></thead>
+        <tbody>
+          <tr><td>Setup</td><td>None</td><td>Paste code in each file</td><td>Install once</td></tr>
+          <tr><td>Several colors at once</td><td>No</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>Normal range, moves with rows</td><td>Yes</td><td>No, range in quotes</td><td>Yes</td></tr>
+          <tr><td>Updates after a color change</td><td>No, re-apply the filter</td><td>No</td><td>Yes, on refresh</td></tr>
+          <tr><td>Shows color codes</td><td>No</td><td>No</td><td>Yes, in the sidebar</td></tr>
+          <tr><td>Font color</td><td>Yes (Filter by color → Text color)</td><td>With code changes</td><td>Yes (Pro)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="faq">Common questions</h2>
+    <h3>Can COUNTIF count by color?</h3>
+    <p>No. <code>COUNTIF</code> and <code>COUNTIFS</code> look at cell values only. Color needs one of the methods above.</p>
+    <h3>Why does my color count not update?</h3>
+    <p>Changing a color is not an edit that makes Sheets recalculate formulas. Custom functions keep the old result until a value in their arguments changes. Cellhue works around this with refresh on open, the <b>Refresh all</b> command and, in Pro, auto-refresh.</p>
+    <h3>Can I count cells colored by conditional formatting?</h3>
+    <p>Not by color: scripts and add-ons read the color set on the cell, not the color a rule displays. Use <code>COUNTIF</code> with the same condition as the rule, for example <code>=COUNTIF(A2:A50, "&gt;100")</code>.</p>
+
+    <div class="cta">
+      <h2>Try Cellhue</h2>
+      <p>Color formulas that work like <code>SUM</code> and <code>COUNTIF</code>, a sidebar that shows every color in a range, and refresh when colors change. Free plan for fill colors; Pro is a $19 one-time payment.</p>
+      <div class="actions">
+        <span class="btn soon" aria-disabled="true"><!-- INSTALL_URL: replace with the Marketplace link after listing -->Coming soon to Google Workspace Marketplace</span>
+        <a class="btn ghost" href="/help/">Read the help</a>
+      </div>
+    </div>
+
+    <section class="related" aria-label="Related guides">
+      <h2>Related guides</h2>
+      <ul>
+        <li><a href="/sum-by-color-google-sheets/">Sum by color</a></li>
+        <li><a href="/sum-by-font-color-google-sheets/">Sum by font color</a></li>
+        <li><a href="/help/">Cellhue help: all formulas and settings</a></li>
+      </ul>
+    </section>
+  </article>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="links">
+      <a href="/count-colored-cells-google-sheets/">Count colored cells</a>
+      <a href="/sum-by-color-google-sheets/">Sum by color</a>
+      <a href="/sum-by-font-color-google-sheets/">Sum by font color</a>
+      <a href="/help/">Help</a>
+      <a href="/privacy/">Privacy Policy</a>
+      <a href="/terms/">Terms of Service</a>
+    </div>
+    <p>Google Sheets™ is a trademark of Google LLC. Cellhue is not affiliated with Google.</p>
+  </div>
+</footer>
+
+</body>
+</html>
