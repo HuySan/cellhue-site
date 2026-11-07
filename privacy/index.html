@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy Policy | Cellhue</title>
-  <meta name="description" content="How the Cellhue add-on for Google Sheets handles your data: no server, no external requests, your spreadsheet data stays in Google.">
+  <meta name="description" content="How the Cellhue add-on for Google Sheets handles your data: no server of its own, your spreadsheet data stays in Google.">
   <link rel="canonical" href="https://cellhue.com/privacy/">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/style.css">
@@ -28,7 +28,7 @@
     <h1>Privacy Policy</h1>
     <p class="updated">Last updated: EFFECTIVE_DATE</p>
 
-    <p>This policy explains what the Cellhue add-on for Google Sheets ("Cellhue", "we", "us") can access and what happens to that information. In short: Cellhue works only inside the spreadsheet you use it in, has no server, and does not send your data anywhere.</p>
+    <p>This policy explains what the Cellhue add-on for Google Sheets ("Cellhue", "we", "us") can access and what happens to that information. In short: Cellhue works only inside the spreadsheet you use it in, has no server of its own, and does not send your spreadsheet data anywhere. The only outside request is a check of your Pro license key with Polar.</p>
 
     <h2>1. What Cellhue can access</h2>
     <p>When you install Cellhue, Google asks you to allow these permissions (OAuth scopes):</p>
@@ -44,10 +44,6 @@
             <td><code>https://www.googleapis.com/auth/script.container.ui</code></td>
             <td>To show the Cellhue menu, sidebar and dialogs inside Google Sheets.</td>
           </tr>
-          <tr>
-            <td><code>https://www.googleapis.com/auth/userinfo.email</code></td>
-            <td>To read the email address of your Google account, used only to check a Cellhue Pro license key (see section 3).</td>
-          </tr>
         </tbody>
       </table>
     </div>
@@ -55,12 +51,13 @@
     <h2>2. Spreadsheet data</h2>
     <ul>
       <li>Cellhue works only inside the current spreadsheet.</li>
-      <li>Cellhue has no server and makes no external requests.</li>
+      <li>Cellhue has no server of its own. The add-on code that runs in Google makes no external requests.</li>
       <li>Your spreadsheet data does not leave Google and is not transferred to us or to anyone else.</li>
     </ul>
 
-    <h2>3. Your email address</h2>
-    <p>Cellhue uses your Google account email address only to check your license key locally, inside the add-on. The email is not sent to us or to anyone else.</p>
+    <h2>3. Pro license key check</h2>
+    <p>Cellhue Pro license keys are issued by Polar. When you activate a key, and each time you open the Cellhue sidebar after that, the sidebar sends the license key, an activation ID and a short activation label to Polar's license API (api.polar.sh) directly from your browser, to check that the key is valid. No spreadsheet data and no data from Google APIs is sent.</p>
+    <p>Cellhue saves the key, its activation ID, the purchaser email that Polar returns for the key and the time of the last check in your own Google account's user properties for the add-on (Apps Script UserProperties). This information is not sent to us.</p>
 
     <h2>4. Usage statistics</h2>
     <p>Cellhue keeps simple usage counters locally, in your own Google account's user properties for the add-on (Apps Script UserProperties). These counters are never sent anywhere.</p>
