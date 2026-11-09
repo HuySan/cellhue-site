@@ -36,7 +36,7 @@
 <main class="doc">
   <div class="wrap narrow">
     <h1>Privacy Policy</h1>
-    <p class="updated">Last updated: November 7, 2026</p>
+    <p class="updated">Last updated: November 9, 2026</p>
 
     <p>This policy explains what the Cellhue add-on for Google Sheets ("Cellhue", "we", "us") can access and what happens to that information. In short: Cellhue works only inside the spreadsheet you use it in, has no server of its own, and does not send your spreadsheet data anywhere. The only outside request is a check of your Pro license key with Polar.</p>
 
@@ -87,10 +87,55 @@
       <li>Cellhue does not use this data to develop, improve or train generalized artificial intelligence or machine learning models.</li>
     </ul>
 
-    <h2>8. Changes to this policy</h2>
+    <h2>8. How we protect your data</h2>
+    <ul>
+      <li><b>Data stays inside Google.</b> Cellhue runs as Google Apps Script in Google's infrastructure. Spreadsheet data is read only while a formula, the sidebar or a menu action runs, is held in memory for that action, and is not copied to any database, file or server of ours. We have no server and no database.</li>
+      <li><b>Least access.</b> Cellhue asks only for the two scopes listed above. <code>spreadsheets.currentonly</code> limits access to the one spreadsheet where you use Cellhue.</li>
+      <li><b>Encrypted in transit.</b> The only outside request, the Pro license check, goes over HTTPS (TLS) directly from your browser to Polar. It contains no spreadsheet data and no data from Google APIs.</li>
+      <li><b>Protected storage.</b> The few items Cellhue stores (see section 9) are kept by Google in Apps Script properties. User properties are private to your Google account and are available only to the Cellhue code running for you. We cannot read them.</li>
+      <li><b>No human access.</b> Because we never receive your Google user data, nobody at Cellhue can read it. Source code changes are made only by the developer, and no secrets or user data are kept in the public code.</li>
+    </ul>
+
+    <h2>9. Data retention and deletion</h2>
+    <p>We do not retain Google user data. We have no copy of your spreadsheet data, and we cannot access what Cellhue stores in your account. What exists, where it lives and how to remove it:</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Data</th><th>Where it is stored</th><th>How long it is kept and how to delete it</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Spreadsheet values and colors</td>
+            <td>Your spreadsheet only</td>
+            <td>Not stored by Cellhue. They are read in memory while an action runs and are gone when it finishes. Your data stays in your file until you delete it.</td>
+          </tr>
+          <tr>
+            <td>Cellhue formulas, a hidden helper sheet named <code>_cellhue</code> and a named range <code>CELLHUE_REFRESH</code></td>
+            <td>Your spreadsheet</td>
+            <td>Kept in the spreadsheet until you delete them. Delete the formulas, the <code>_cellhue</code> sheet (Right-click its tab, or View → Hidden sheets) and the named range (Data → Named ranges) at any time. Cellhue recreates the helper sheet only if you use it again.</td>
+          </tr>
+          <tr>
+            <td>Formula separator setting for the spreadsheet language</td>
+            <td>Spreadsheet's document properties</td>
+            <td>Kept with the spreadsheet. It is deleted when you delete the spreadsheet.</td>
+          </tr>
+          <tr>
+            <td>Pro license key, activation ID, purchaser email returned by Polar, time of last check</td>
+            <td>Your Google account's Apps Script user properties for Cellhue</td>
+            <td>Kept while the Pro key is valid. They are removed automatically the next time you open the sidebar after the key is refunded, revoked or deactivated, for example when you remove the activation in your Polar customer portal. You can also stop Cellhue from using them by uninstalling Cellhue or removing its access at <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.</td>
+          </tr>
+          <tr>
+            <td>Local usage counters</td>
+            <td>Your Google account's Apps Script user properties for Cellhue</td>
+            <td>Kept in your account, never sent to us. Removed with the Cellhue data above.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p>To ask us to delete anything related to you, or to ask what we hold, email <a href="mailto:idiosgamecorporation@gmail.com">idiosgamecorporation@gmail.com</a>. We will reply within 30 days. Since we hold no Google user data, we will tell you so and help you remove the items above. Payment and order records belong to Polar, which keeps them under its own policy and legal obligations.</p>
+
+    <h2>10. Changes to this policy</h2>
     <p>If we change this policy, we will post the new version on this page and update the date at the top.</p>
 
-    <h2>9. Contact</h2>
+    <h2>11. Contact</h2>
     <p>Questions about privacy: <a href="mailto:idiosgamecorporation@gmail.com">idiosgamecorporation@gmail.com</a></p>
   </div>
 </main>
